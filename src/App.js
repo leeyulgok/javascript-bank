@@ -1,6 +1,11 @@
+import InputView from "./InputView.js";
+import OutputView from "./OutputView.js";
+
 class App {
   async run() {
-    console.log("start");
+    OutputView.printHello();
+    
+    const isExists = await InputView.readExistsAccount();
   }
 }
 
