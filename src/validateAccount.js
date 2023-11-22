@@ -1,5 +1,6 @@
 const ERROR_MESSAGE = {
   INVALID_DEFAULT: "[ERROR] 유효하지 않은 입력입니다. 다시 한 번 입력해주세요.",
+  INVALID_ACCOUNT_NUMBER: "[ERROR] 유효하지 않은 계좌번호입니다. 다시 한 번 입력해주세요.",
 };
 
 export const validateIsExistsAccount = (input) => {
@@ -30,7 +31,7 @@ export const validateAccountNumber = (input) => {
   const regex = /^(?!.*(.)\1{2})[1-9]\d{2}-\d{4}$/;
 
   if (!regex.test(input)) {
-    throw new Error(ERROR_MESSAGE.INVALID_DEFAULT);
+    throw new Error(ERROR_MESSAGE.INVALID_ACCOUNT_NUMBER);
   }
 
   return input;
