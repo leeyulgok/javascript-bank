@@ -1,10 +1,10 @@
 import { Console } from "@woowacourse/mission-utils";
 import {
-  validateIsExistsAccount,
   validateUserName,
   validateAccountNumber,
   validatePassword,
 } from "./validateAccount.js";
+import { validateYesOrNoInput } from "./validateInput.js";
 
 const CONSOLE_MESSAGE = {
   EXISTS_ACCOUNT: "계좌가 존재하신가요(2를 누를 경우, 자동으로 계좌 개설로 넘어갑니다.)?\n예-1,아니요-2\n",
@@ -17,14 +17,14 @@ const CONSOLE_MESSAGE = {
 
 const InputView = {
   async readExistsAccount() {
-    return readInput(CONSOLE_MESSAGE.EXISTS_ACCOUNT, validateIsExistsAccount);
+    return readInput(CONSOLE_MESSAGE.EXISTS_ACCOUNT, validateYesOrNoInput);
   },
 
   async readUserName() {
     return readInput(CONSOLE_MESSAGE.USER_NAME, validateUserName);
   },
 
-  async readUserAccountNumber() {
+  async readForMakeAccountNumber() {
     return readInput(CONSOLE_MESSAGE.CREATE_USER_ACCOUNT_NUMBER, validateAccountNumber);
   },
 
@@ -33,10 +33,10 @@ const InputView = {
   },
 
   async readContinueTransaction() {
-    return readInput(CONSOLE_MESSAGE.CONTINUE, validateIsExistsAccount);
+    return readInput(CONSOLE_MESSAGE.CONTINUE, validateYesOrNoInput);
   },
 
-  async readUserInputAccountNumber() {
+  async readUserAccountNumber() {
     return readInput(CONSOLE_MESSAGE.READ_USER_ACCOUNT_NUMBER, validateAccountNumber);
   },
 };
@@ -52,6 +52,7 @@ const readInput = async (msg, fn) => {
       return fn(input);
     } catch (error) {
       Console.print(`${error.message}`);
+      throw error;
     }
   }
 };

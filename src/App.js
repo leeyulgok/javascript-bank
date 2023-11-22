@@ -15,7 +15,7 @@ class App {
   async createAccount() {
     OutputView.printCreateAccount();
     const userName = await InputView.readUserName();
-    const userAccountNumber = await InputView.readUserAccountNumber();
+    const userAccountNumber = await InputView.readForMakeAccountNumber();
     const userPassword = await InputView.readUserPassword();
     const account = this.accountManager(userName, userAccountNumber, userPassword, 0);
     OutputView.printSuccessAccount();
@@ -24,7 +24,7 @@ class App {
   }
 
   async readAccount() {
-    const accountNumber = await InputView.readUserInputAccountNumber();
+    const accountNumber = await InputView.readUserAccountNumber();
     const data = await findAccountByNumber(accountNumber);
     const account = new Account(data.userName, data.accountNumber, data.password, data.balance);
     return account;

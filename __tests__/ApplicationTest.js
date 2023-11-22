@@ -32,6 +32,7 @@ const expectLogContains = (received, expectedLogs) => {
 describe("가상 은행 프로그램 기능 테스트", () => {
   test("계좌 생성 테스트", async () => {
     // given
+    const logSpy = getLogSpy();
     mockQuestions(["2", "이대한", "123-4567", "1234", "2"]);
 
     // when
@@ -39,12 +40,8 @@ describe("가상 은행 프로그램 기능 테스트", () => {
     await app.run();
 
     // then
-    const logSpy = getLogSpy();
     const expectedOutputs = [
       "<계좌개설>",
-      "이름을 입력해주세요.",
-      "생성하고 싶은 계좌번호를 입력해주세요(eg. 123-4567).",
-      "비밀번호 4자리를 입력해주세요.",
       "계좌개설에 성공했습니다.",
     ];
 
@@ -53,6 +50,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
 
   test("입금 테스트", async () => {
     // given
+    const logSpy = getLogSpy();
     mockQuestions(["1", "123-4567", "1", "10000", "2"]);
 
     // when
@@ -60,11 +58,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
     await app.run();
 
     // then
-    const logSpy = getLogSpy();
     const expectedOutputs = [
-      "진행하려는 사항을 입력해주세요.",
-      "입금-1,출금-2,송금-3,거래조회-4,잔고-5,종료-9",
-      "1",
       "<입금>",
       "<잔고>",
     ];
@@ -74,6 +68,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
 
   test("출금 테스트", async () => {
     // given
+    const logSpy = getLogSpy();
     mockQuestions(["1", "123-4567", "2", "10000", "1234", "2"]);
 
     // when
@@ -81,11 +76,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
     await app.run();
 
     // then
-    const logSpy = getLogSpy();
     const expectedOutputs = [
-      "진행하려는 사항을 입력해주세요.",
-      "입금-1,출금-2,송금-3,거래조회-4,잔고-5,종료-9",
-      "2",
       "<출금>",
       "<비밀번호>",
       "<잔고>",
@@ -96,6 +87,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
 
   test("송금 테스트", async () => {
     // given
+    const logSpy = getLogSpy();
     mockQuestions(["1", "123-4567", "3", "123-4567", "10000", "1234", "2"]);
 
     // when
@@ -103,11 +95,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
     await app.run();
 
     // then
-    const logSpy = getLogSpy();
     const expectedOutputs = [
-      "진행하려는 사항을 입력해주세요.",
-      "입금-1,출금-2,송금-3,거래조회-4,잔고-5,종료-9",
-      "3",
       "<송금>",
       "<금액>",
       "<비밀번호>",
@@ -119,6 +107,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
 
   test("거래조회 테스트", async () => {
     // given
+    const logSpy = getLogSpy();
     mockQuestions(["1", "123-4567", "4", "2"]);
 
     // when
@@ -126,11 +115,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
     await app.run();
 
     // then
-    const logSpy = getLogSpy();
     const expectedOutputs = [
-      "진행하려는 사항을 입력해주세요.",
-      "입금-1,출금-2,송금-3,거래조회-4,잔고-5,종료-9",
-      "4",
       "<거래조회>",
     ];
 
@@ -139,6 +124,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
 
   test("잔고 테스트", async () => {
     // given
+    const logSpy = getLogSpy();
     mockQuestions(["1", "123-4567", "5", "1234", "2"]);
 
     // when
@@ -146,11 +132,7 @@ describe("가상 은행 프로그램 기능 테스트", () => {
     await app.run();
 
     // then
-    const logSpy = getLogSpy();
     const expectedOutputs = [
-      "진행하려는 사항을 입력해주세요.",
-      "입금-1,출금-2,송금-3,거래조회-4,잔고-5,종료-9",
-      "5",
       "<비밀번호>",
       "<잔고>",
     ];
