@@ -1,5 +1,4 @@
 import {
-  validateIsExistsAccount,
   validateUserName,
   validateAccountNumber,
   validatePassword,
@@ -11,17 +10,6 @@ const ERROR_MESSAGE = {
 };
 
 describe("validateAccount 단위 테스트", () => {
-  test("validateIsExistsAccount: 정상적인 입력 처리", () => {
-    expect(validateIsExistsAccount("1")).toBeTruthy();
-    expect(validateIsExistsAccount("2")).toBeFalsy();
-  });
-
-  test("validateIsExistsAccount: 예외적인 입력 처리", () => {
-    expect(() => validateIsExistsAccount("3")).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
-    expect(() => validateIsExistsAccount("")).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
-    expect(() => validateIsExistsAccount(0)).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
-  });
-
   test("validateUserName: 정상적인 입력 처리", () => {
     const nameOne = "홍길동";
     const nameTwo = "김군";
