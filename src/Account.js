@@ -11,7 +11,7 @@ class Account {
     this.#balance = balance;
   }
 
-  get UserName() {
+  get userName() {
     return this.#userName;
   }
 

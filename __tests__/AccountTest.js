@@ -17,7 +17,7 @@ describe("Account 클래스 단위 테스트", () => {
   });
 
   test("새로운 Account 인스턴스 생성 시 속성이 올바르게 할당되는지 확인", () => {
-    expect(account.UserName).toBe(userName);
+    expect(account.userName).toBe(userName);
     expect(account.accountNumber).toBe(accountNumber);
     expect(account.password).toBe(password);
     expect(account.balance).toBe(balance);
