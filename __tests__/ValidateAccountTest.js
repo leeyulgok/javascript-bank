@@ -2,7 +2,7 @@ import {
   validateUserName,
   validateAccountNumber,
   validatePassword,
-  checkUserAccountNumber,
+  checkDuplicationAccountNumber,
 } from "../src/validateAccount.js";
 import { findAccountByNumber } from "../src/FileHandler.js";
 
@@ -57,11 +57,11 @@ describe("validateAccount 단위 테스트", () => {
     expect(() => validateAccountNumber(accountNumberThree)).toThrow(ERROR_MESSAGE.INVALID_ACCOUNT_NUMBER);
   });
 
-  test("checkUserAccountNumber: 중복되는 계좌 처리", async () => {
+  test("checkDuplicationAccountNumber: 중복되는 계좌 처리", async () => {
     const duplicatedAccountNumber = "123-4567";
     findAccountByNumber.mockResolvedValue({ accountNumber: duplicatedAccountNumber });
 
-    await expect(checkUserAccountNumber(duplicatedAccountNumber))
+    await expect(checkDuplicationAccountNumber(duplicatedAccountNumber))
       .rejects.toThrow(ERROR_MESSAGE.INVALID_DUPLI_ACCOUNT_NUMBER);
   });
 

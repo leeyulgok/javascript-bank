@@ -40,7 +40,7 @@ export const validatePassword = (input) => {
   return input;
 };
 
-export const checkUserAccountNumber = async (accountNumber) => {
+export const checkDuplicationAccountNumber = async (accountNumber) => {
   const accontExists = await findAccountByNumber(accountNumber);
 
   if (accontExists) {

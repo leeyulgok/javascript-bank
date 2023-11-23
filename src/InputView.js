@@ -3,7 +3,7 @@ import {
   validateUserName,
   validateAccountNumber,
   validatePassword,
-  checkUserAccountNumber,
+  checkDuplicationAccountNumber,
 } from "./validateAccount.js";
 import { validateYesOrNoInput } from "./validateInput.js";
 
@@ -29,7 +29,7 @@ const InputView = {
     return readInput(
       CONSOLE_MESSAGE.CREATE_USER_ACCOUNT_NUMBER,
       validateAccountNumber,
-      checkUserAccountNumber
+      checkDuplicationAccountNumber
     );
   },
 
