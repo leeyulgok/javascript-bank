@@ -3,6 +3,7 @@ import {
   validateUserName,
   validateAccountNumber,
   validatePassword,
+  checkUserAccountNumber,
 } from "./validateAccount.js";
 import { validateYesOrNoInput } from "./validateInput.js";
 
@@ -25,7 +26,11 @@ const InputView = {
   },
 
   async readForMakeAccountNumber() {
-    return readInput(CONSOLE_MESSAGE.CREATE_USER_ACCOUNT_NUMBER, validateAccountNumber);
+    return readInput(
+      CONSOLE_MESSAGE.CREATE_USER_ACCOUNT_NUMBER,
+      validateAccountNumber,
+      checkUserAccountNumber
+    );
   },
 
   async readUserPassword() {
@@ -41,7 +46,7 @@ const InputView = {
   },
 };
 
-const readInput = async (msg, fn) => {
+const readInput = async (msg, fn, secondFn) => {
   let firstAttempt = true;
 
   while (true) {
@@ -49,10 +54,13 @@ const readInput = async (msg, fn) => {
       const input = await Console.readLineAsync(firstAttempt ? msg : "");
       firstAttempt = false;
 
+      if (secondFn) {
+        await secondFn(input);
+      };
+
       return fn(input);
     } catch (error) {
       Console.print(`${error.message}`);
-      throw error;
     }
   }
 };

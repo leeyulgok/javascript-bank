@@ -1,6 +1,9 @@
+import { findAccountByNumber } from "./FileHandler.js";
+
 const ERROR_MESSAGE = {
   INVALID_DEFAULT: "[ERROR] 유효하지 않은 입력입니다. 다시 한 번 입력해주세요.",
   INVALID_ACCOUNT_NUMBER: "[ERROR] 유효하지 않은 계좌번호입니다. 다시 한 번 입력해주세요.",
+  INVALID_DUPLI_ACCOUNT_NUMBER: "[ERROR] 이미 존재하는 계좌번호입니다. 다른 계좌번호로 입력해주세요.",
 };
 
 export const validateUserName = (input) => {
@@ -29,10 +32,20 @@ export const validateAccountNumber = (input) => {
 
 export const validatePassword = (input) => {
   const regex = /^\d{4}$/;
-  
+
   if (!regex.test(input)) {
     throw new Error(ERROR_MESSAGE.INVALID_DEFAULT);
   }
 
-  return input
+  return input;
+};
+
+export const checkUserAccountNumber = async (accountNumber) => {
+  const accontExists = await findAccountByNumber(accountNumber);
+
+  if (accontExists) {
+    throw new Error(ERROR_MESSAGE.INVALID_DUPLI_ACCOUNT_NUMBER);
+  }
+
+  return accountNumber;
 };
