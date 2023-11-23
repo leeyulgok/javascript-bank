@@ -32,3 +32,14 @@ export const findAccountByNumber = async (accountNumber) => {
     return null;
   }
 };
+
+export const saveAccount = async (account) => {
+  const accounts = await readJSONFile();
+  accounts.push({
+    userName: account.userName,
+    accountNumber: account.accountNumber,
+    password: account.password,
+    balance: account.balance,
+  });
+  await writeJSONFile(accounts);
+};
