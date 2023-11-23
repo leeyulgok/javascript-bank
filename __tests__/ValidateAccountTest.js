@@ -3,6 +3,7 @@ import {
   validateAccountNumber,
   validatePassword,
   checkDuplicationAccountNumber,
+  checkExistsAccount,
 } from "../src/validateAccount.js";
 import { findAccountByNumber } from "../src/FileHandler.js";
 
@@ -10,6 +11,7 @@ const ERROR_MESSAGE = {
   INVALID_DEFAULT: "[ERROR] 유효하지 않은 입력입니다. 다시 한 번 입력해주세요.",
   INVALID_ACCOUNT_NUMBER: "[ERROR] 유효하지 않은 계좌번호입니다. 다시 한 번 입력해주세요.",
   INVALID_DUPLI_ACCOUNT_NUMBER: "[ERROR] 이미 존재하는 계좌번호입니다. 다른 계좌번호로 입력해주세요.",
+  INVALID_NOT_EXISTS_ACCOUNT: "[ERROR] 존재하지 않는 계좌입니다. 다시 한 번 확인해주세요.",
 };
 
 jest.mock("../src/FileHandler", () => ({
@@ -64,6 +66,16 @@ describe("validateAccount 단위 테스트", () => {
     await expect(checkDuplicationAccountNumber(duplicatedAccountNumber))
       .rejects.toThrow(ERROR_MESSAGE.INVALID_DUPLI_ACCOUNT_NUMBER);
   });
+
+  test("checkExistsAccount: 계좌 존재 여부 처리 - 계좌가 없는 경우", async () => {
+    findAccountByNumber.mockResolvedValue(null);
+  
+    const nonExistentAccountNumber = "324-6547";
+  
+    await expect(checkExistsAccount(nonExistentAccountNumber))
+      .rejects.toThrow(ERROR_MESSAGE.INVALID_NOT_EXISTS_ACCOUNT);
+  });
+  
 
   test("validatePassword: 정상적인 입력 처리", () => {
     const passwordOne = "1234";

@@ -26,8 +26,7 @@ const AccountManager = {
   },
 
   async readAccount() {
-    const accountNumber = await InputView.readUserAccountNumber();
-    const data = await findAccountByNumber(accountNumber);
+    const data = await InputView.readUserAccountNumber();
     const account = new Account(
       data.userName,
       data.accountNumber,

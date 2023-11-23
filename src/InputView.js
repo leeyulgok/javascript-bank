@@ -4,6 +4,7 @@ import {
   validateAccountNumber,
   validatePassword,
   checkDuplicationAccountNumber,
+  checkExistsAccount,
 } from "./validateAccount.js";
 import { validateYesOrNoInput } from "./validateInput.js";
 
@@ -42,7 +43,10 @@ const InputView = {
   },
 
   async readUserAccountNumber() {
-    return readInput(CONSOLE_MESSAGE.READ_USER_ACCOUNT_NUMBER, validateAccountNumber);
+    return readInput(
+      CONSOLE_MESSAGE.READ_USER_ACCOUNT_NUMBER,
+      validateAccountNumber,
+      checkExistsAccount);
   },
 };
 
@@ -53,9 +57,9 @@ const readInput = async (msg, fn, secondFn) => {
     try {
       const input = await Console.readLineAsync(firstAttempt ? msg : "");
       firstAttempt = false;
-
+      
       if (secondFn) {
-        await secondFn(input);
+        return await secondFn(fn(input));
       };
 
       return fn(input);
