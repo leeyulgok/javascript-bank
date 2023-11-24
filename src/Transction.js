@@ -17,11 +17,8 @@ const Transaction = {
   },
 
   async withdrawAccount(account) {
-    const password = await InputView.readPassword();
-    
-    if(account.password !== password) {
-      throw new Error(ERROR_MESSAGE.INVALID_PASSWORD);
-    }
+    await this.checkPassword(account);
+    OutputView.printBalance(account);
 
     const money = await InputView.readWithdrawMoney(account);
 
@@ -31,11 +28,34 @@ const Transaction = {
     OutputView.printBalance(account);
   },
 
-  async remittanceAccount(account) {},
+  async remittanceAccount(account) {
+    const opponentAccount = await InputView.readRemittanceAccount(account);
+    
+    await this.checkPassword(account);
+    OutputView.printBalance(account);
+
+    const money = await InputView.readRemittanceMoney(account);
+    // 나중에 트랜젝션 처리하기.
+    account.withdrawBalance(money);
+    await updateAccountBalance(account.accountNumber, -money);
+    await updateAccountBalance(opponentAccount.accountNumber, money);
+
+    OutputView.printBalance(account);
+  },
 
   async inquiryAccount(account) {},
 
-  async checkAccount(account) {},
+  async checkAccount(account) {
+    OutputView.printBalance(account);
+  },
+
+  async checkPassword(account) {
+    const password = await InputView.readPassword();
+    
+    if(account.password !== password) {
+      throw new Error(ERROR_MESSAGE.INVALID_PASSWORD);
+    };
+  },
 };
 
 export default Transaction;

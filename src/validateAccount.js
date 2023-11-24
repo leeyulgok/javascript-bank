@@ -51,14 +51,18 @@ export const checkDuplicationAccountNumber = async (accountNumber) => {
   return accountNumber;
 };
 
-export const checkExistsAccount = async (accountNumber) => {
-  const accont = await findAccountByNumber(accountNumber);
+export const checkExistsAccount = async (accountNumber, selfAccount) => {
+  const account = await findAccountByNumber(accountNumber);
 
-  if (!accont) {
+  if (!account) {
     throw new Error(ERROR_MESSAGE.INVALID_NOT_EXISTS_ACCOUNT);
   }
 
-  return accont;
+  if(selfAccount && selfAccount.accountNumber === account.accountNumber) {
+    throw new Error(ERROR_MESSAGE.INVALID_DEFAULT);
+  }
+
+  return account;
 };
 
 export const validateProgressNumber = (input) => {

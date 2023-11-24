@@ -20,6 +20,8 @@ const CONSOLE_MESSAGE = {
   DEPOSIT: "\n<입금>\n입금할 금액을 입력해주세요.\n",
   WITHDRAW: "\n<출금>\n출금할 금액을 입력해주세요.\n",
   PASSWORD: "\n<비밀번호>\n비밀번호를 입력해주세요.\n",
+  REMITTANCE: "\n<송금>\n송금할 계좌을 입력해주세요(eg. 123-4567).\n",
+  MONEY: "\n<금액>\n송금할 금액을 입력해주세요.\n",
 };
 
 const InputView = {
@@ -69,6 +71,14 @@ const InputView = {
 
   async readPassword() {
     return readInput(CONSOLE_MESSAGE.PASSWORD, validatePassword);
+  },
+
+  async readRemittanceAccount(account) {
+    return readInput(CONSOLE_MESSAGE.REMITTANCE, validateAccountNumber, checkExistsAccount, account);
+  },
+
+  async readRemittanceMoney(account) {
+    return readInput(CONSOLE_MESSAGE.MONEY, validateMoney, validateWithdraw, account);
   },
 };
 
