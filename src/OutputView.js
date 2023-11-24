@@ -5,6 +5,7 @@ const DEFAULT_MESSAGE = {
   CREATE_ACCOUNT: "\n<계좌개설>",
   SUCCESS_ACCOUNT: "\n계좌개설에 성공했습니다.",
   PROGRESS: "\n진행하려는 사항을 입력해주세요.",
+  BALANCE: "\n<잔고>",
   EXIT: "\n거래를 종료합니다.",
 };
 
@@ -27,6 +28,11 @@ const OutputView = {
 
   printExit() {
     Console.print(DEFAULT_MESSAGE.EXIT);
+  },
+
+  printBalanc(accont) {
+    Console.print(DEFAULT_MESSAGE.BALANCE);
+    Console.print(`${accont.userName}님의 잔고는\n${accont.balance}원입니다.\n`);
   },
 }
 

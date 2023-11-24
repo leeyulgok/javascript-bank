@@ -43,3 +43,15 @@ export const saveAccount = async (account) => {
   });
   await writeJSONFile(accounts);
 };
+
+export const updateAccountBalance = async (accountNumber, newBalance) => {
+  try {
+    const accounts = await readJSONFile();
+    const accountIndex = accounts.findIndex((acc) => acc.accountNumber === accountNumber);
+
+    accounts[accountIndex].balance += newBalance;
+    await writeJSONFile(accounts);
+  } catch (error) {
+    Console.print(`${error.message}`);
+  }
+};
