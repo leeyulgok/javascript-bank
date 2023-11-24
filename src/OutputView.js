@@ -30,7 +30,7 @@ const OutputView = {
     Console.print(DEFAULT_MESSAGE.EXIT);
   },
 
-  printBalanc(accont) {
+  printBalance(accont) {
     Console.print(DEFAULT_MESSAGE.BALANCE);
     Console.print(`${accont.userName}님의 잔고는\n${accont.balance}원입니다.\n`);
   },

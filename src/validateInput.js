@@ -22,3 +22,11 @@ export const validateMoney = (input) => {
 
   return money;
 };
+
+export const validateWithdraw = (money, account) => {
+  if (account.balance < money) {
+    throw new Error("[ERROR] 출금하려는 금액이 더 많습니다.");
+  }
+
+  return money;
+};

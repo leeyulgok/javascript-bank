@@ -2,6 +2,7 @@ import InputView from "./InputView.js";
 import OutputView from "./OutputView.js";
 import AccountManager from "./AccountManager.js";
 import Transaction from "./Transction.js";
+import { Console } from "@woowacourse/mission-utils";
 
 const PROGRESS_NUMER = {
   DEPOSIT: "1",
@@ -26,8 +27,8 @@ const Progress = {
       } else {
         await AccountManager.createAccount();
         isAccountContinue = await InputView.readContinueTransaction();
-      };
-    };
+      }
+    }
 
     return account;
   },
@@ -40,16 +41,21 @@ const Progress = {
       const progress = await InputView.readProgressNumber();
 
       if (progress === PROGRESS_NUMER.EXIT) {
-        return isProgressContinue = false;
+        return (isProgressContinue = false);
       } else {
-        await this.transaction(account, progress);
-      };
-      
+        try {
+          await this.transaction(account, progress);
+        } catch (error) {
+          Console.print(`${error.message}`);
+          return (isProgressContinue = false);
+        }
+      }
+
       isProgressContinue = await InputView.readContinueTransaction();
-    };
+    }
   },
 
-  async transaction(account, progress, isProgressContinue) {
+  async transaction(account, progress) {
     if (progress === PROGRESS_NUMER.DEPOSIT) {
       await Transaction.depositAccount(account);
     } else if (progress === PROGRESS_NUMER.WITHDRAW) {
@@ -60,7 +66,7 @@ const Progress = {
       await Transaction.inquiryAccount(account);
     } else if (progress === PROGRESS_NUMER.CHECK) {
       await Transaction.checkAccount(account);
-    };
+    }
   },
 };
 
