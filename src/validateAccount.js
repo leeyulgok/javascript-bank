@@ -60,3 +60,13 @@ export const checkExistsAccount = async (accountNumber) => {
 
   return accont;
 };
+
+export const validateProgressNumber = (input) => {
+  const regex = /^[123459]$/;
+
+  if(!regex.test(input)) {
+    throw new Error(ERROR_MESSAGE.INVALID_DEFAULT);
+  }
+
+  return input;
+};

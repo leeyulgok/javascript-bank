@@ -1,4 +1,5 @@
 import InputView from "../src/InputView.js";
+import { findAccountByNumber } from "../src/FileHandler.js";
 import { Console } from "@woowacourse/mission-utils";
 
 jest.mock("@woowacourse/mission-utils", () => ({
@@ -6,6 +7,10 @@ jest.mock("@woowacourse/mission-utils", () => ({
     readLineAsync: jest.fn(),
     print: jest.fn(),
   },
+}));
+
+jest.mock("../src/FileHandler.js", () => ({
+  findAccountByNumber: jest.fn(),
 }));
 
 describe("InputView 단위 테스트", () => {
@@ -57,9 +62,17 @@ describe("InputView 단위 테스트", () => {
   });
 
   test("readUserAccountNumber: 정상적인 계좌번호 입력", async () => {
+    findAccountByNumber.mockResolvedValue({accountNumber: "987-6543"});
     Console.readLineAsync.mockResolvedValueOnce("987-6543");
-    const accountNumber = await InputView.readUserAccountNumber();
+    const account = await InputView.readUserAccountNumber();
 
-    expect(accountNumber).toBe("987-6543");
+    expect(account.accountNumber).toBe("987-6543");
+  });
+
+  test("readProgressNumber: 정상적인 입력", async () => {
+    Console.readLineAsync.mockResolvedValueOnce("1");
+    const progressNumber = await InputView.readProgressNumber();
+
+    expect(progressNumber).toBe("1");
   });
 });

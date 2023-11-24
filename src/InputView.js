@@ -5,6 +5,7 @@ import {
   validatePassword,
   checkDuplicationAccountNumber,
   checkExistsAccount,
+  validateProgressNumber,
 } from "./validateAccount.js";
 import { validateYesOrNoInput } from "./validateInput.js";
 
@@ -15,6 +16,7 @@ const CONSOLE_MESSAGE = {
   READ_USER_ACCOUNT_NUMBER: "\n계좌번호를 입력해주세요(eg. 123-4567).\n",
   USER_PASSWORD: "\n비밀번호 4자리를 입력해주세요.\n",
   CONTINUE: "계속 거래를 진행하시겠습니까?\n예-1,아니요-2\n",
+  PROGRESS_NUMBER: "입금-1,출금-2,송금-3,거래조회-4,잔고-5,종료-9\n",
 };
 
 const InputView = {
@@ -46,7 +48,12 @@ const InputView = {
     return readInput(
       CONSOLE_MESSAGE.READ_USER_ACCOUNT_NUMBER,
       validateAccountNumber,
-      checkExistsAccount);
+      checkExistsAccount
+    );
+  },
+
+  async readProgressNumber() {
+    return readInput(CONSOLE_MESSAGE.PROGRESS_NUMBER, validateProgressNumber);
   },
 };
 

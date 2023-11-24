@@ -4,6 +4,7 @@ import {
   validatePassword,
   checkDuplicationAccountNumber,
   checkExistsAccount,
+  validateProgressNumber,
 } from "../src/validateAccount.js";
 import { findAccountByNumber } from "../src/FileHandler.js";
 
@@ -95,5 +96,25 @@ describe("validateAccount 단위 테스트", () => {
     expect(() => validatePassword(passwordOne)).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
     expect(() => validatePassword(passwordTwo)).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
     expect(() => validatePassword(passwordThree)).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
+  });
+
+  test("validateProgressNumber: 정상적인 입력 처리", () => {
+    const progressOne = "1";
+    const progressTwo = "2";
+    const progressThree = "9";
+
+    expect(validateProgressNumber(progressOne)).toBe(progressOne);
+    expect(validateProgressNumber(progressTwo)).toBe(progressTwo);
+    expect(validateProgressNumber(progressThree)).toBe(progressThree);
+  });
+
+  test("validateProgressNumber: 예외적인 입력 처리", () => {
+    const progressOne = "6";
+    const progressTwo = "7";
+    const progressThree = "팔";
+
+    expect(() => validateProgressNumber(progressOne)).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
+    expect(() => validateProgressNumber(progressTwo)).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
+    expect(() => validateProgressNumber(progressThree)).toThrow(ERROR_MESSAGE.INVALID_DEFAULT);
   });
 });
