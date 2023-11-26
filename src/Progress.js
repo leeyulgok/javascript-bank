@@ -1,7 +1,7 @@
 import InputView from "./InputView.js";
 import OutputView from "./OutputView.js";
 import AccountManager from "./AccountManager.js";
-import Transaction from "./Transction.js";
+import ProgressTransaction from "./ProgressTransaction.js";
 import { Console } from "@woowacourse/mission-utils";
 
 const PROGRESS_NUMER = {
@@ -57,15 +57,15 @@ const Progress = {
 
   async transaction(account, progress) {
     if (progress === PROGRESS_NUMER.DEPOSIT) {
-      await Transaction.depositAccount(account);
+      await ProgressTransaction.depositAccount(account);
     } else if (progress === PROGRESS_NUMER.WITHDRAW) {
-      await Transaction.withdrawAccount(account);
+      await ProgressTransaction.withdrawAccount(account);
     } else if (progress === PROGRESS_NUMER.REMITTANCE) {
-      await Transaction.remittanceAccount(account);
+      await ProgressTransaction.remittanceAccount(account);
     } else if (progress === PROGRESS_NUMER.INQUIRY) {
-      await Transaction.inquiryAccount(account);
+      await ProgressTransaction.inquiryAccount(account);
     } else if (progress === PROGRESS_NUMER.CHECK) {
-      await Transaction.checkAccount(account);
+      await ProgressTransaction.checkAccount(account);
     }
   },
 };

@@ -1,7 +1,7 @@
 import Account from "./Account.js";
 import InputView from "./InputView.js";
 import OutputView from "./OutputView.js";
-import { findAccountByNumber, saveAccount } from "./FileHandler.js";
+import { saveAccount } from "./AccountFileHandler.js";
 
 const AccountManager = {
   async createAccount() {
