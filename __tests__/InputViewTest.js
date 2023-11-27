@@ -1,5 +1,5 @@
 import InputView from "../src/InputView.js";
-import { findAccountByNumber } from "../src/FileHandler.js";
+import { findAccountByNumber } from "../src/AccountFileHandler.js";
 import { Console } from "@woowacourse/mission-utils";
 
 jest.mock("@woowacourse/mission-utils", () => ({
@@ -9,7 +9,7 @@ jest.mock("@woowacourse/mission-utils", () => ({
   },
 }));
 
-jest.mock("../src/FileHandler.js", () => ({
+jest.mock("../src/AccountFileHandler.js", () => ({
   findAccountByNumber: jest.fn(),
 }));
 

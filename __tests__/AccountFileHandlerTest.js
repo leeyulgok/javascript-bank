@@ -3,7 +3,7 @@ import {
   readJSONFile,
   findAccountByNumber,
   saveAccount,
-} from "../src/FileHandler.js";
+} from "../src/AccountFileHandler";
 import fs from "fs/promises";
 
 jest.mock("fs/promises");

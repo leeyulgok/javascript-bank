@@ -6,7 +6,7 @@ import {
   checkExistsAccount,
   validateProgressNumber,
 } from "../src/validateAccount.js";
-import { findAccountByNumber } from "../src/FileHandler.js";
+import { findAccountByNumber } from "../src/AccountFileHandler.js";
 
 const ERROR_MESSAGE = {
   INVALID_DEFAULT: "[ERROR] 유효하지 않은 입력입니다. 다시 한 번 입력해주세요.",
@@ -15,7 +15,7 @@ const ERROR_MESSAGE = {
   INVALID_NOT_EXISTS_ACCOUNT: "[ERROR] 존재하지 않는 계좌입니다. 다시 한 번 확인해주세요.",
 };
 
-jest.mock("../src/FileHandler", () => ({
+jest.mock("../src/AccountFileHandler", () => ({
   findAccountByNumber: jest.fn(),
 }));
 

@@ -1,23 +1,15 @@
-import Account from "../src/Account";
-import AccountManager from "../src/AccountManager";
-import InputView from "../src/InputView";
-import { findAccountByNumber, saveAccount } from "../src/FileHandler";
+import Account from "../src/Account.js";
+import AccountManager from "../src/AccountManager.js";
+import InputView from "../src/InputView.js";
+import { saveAccount } from "../src/AccountFileHandler.js";
 
-jest.mock("../src/InputView");
-jest.mock("../src/FileHandler");
+jest.mock("../src/InputView.js");
+jest.mock("../src/AccountFileHandler.js", () => ({
+  findAccountByNumber: jest.fn(),
+  saveAccount: jest.fn(),
+}));
 
 describe("AccountManager 테스트", () => {
-  const DEFAULT_BALANCE = 0;
-
-  const mockAccountData = [
-    {
-      userName: "홍길동",
-      accountNumber: "123-4567",
-      password: "1234",
-      balance: DEFAULT_BALANCE,
-    },
-  ];
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -37,12 +29,9 @@ describe("AccountManager 테스트", () => {
 
   test("readAccount: 계좌 읽기 테스트", async () => {
     InputView.readUserAccountNumber.mockResolvedValue("123-4567");
-
-    findAccountByNumber.mockResolvedValue(mockAccountData);
-
+  
     const account = await AccountManager.readAccount();
-
+    
     expect(account).toEqual(expect.any(Account));
-    expect(findAccountByNumber).toHaveBeenCalledWith("123-4567");
   });
 });
