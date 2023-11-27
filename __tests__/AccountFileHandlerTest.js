@@ -3,6 +3,7 @@ import {
   readJSONFile,
   findAccountByNumber,
   saveAccount,
+  updateAccountBalance,
 } from "../src/AccountFileHandler";
 import fs from "fs/promises";
 
@@ -14,13 +15,13 @@ describe("FileHandler 단위 테스트", () => {
       userName: "홍길동",
       accountNumber: "123-4567",
       password: "1234",
-      balancer: 10000,
+      balance: 10000,
     },
     {
       userName: "김갑수",
       accountNumber: "456-7890",
       password: "1111",
-      balancer: 50000,
+      balance: 50000,
     },
   ];
 
@@ -69,5 +70,20 @@ describe("FileHandler 단위 테스트", () => {
       JSON.stringify([...mockData, newAccount], null, 2),
       "utf8"
     );
+  });
+
+  test("updateAccountBalance: 계좌 잔고 업데이트", async () => {
+    const money = 10000;
+    const accountNumber = "123-4567";
+    const initialBalance = mockData.find(acc => acc.accountNumber === accountNumber).balance;
+    fs.readFile.mockResolvedValue(JSON.stringify(mockData));
+
+    await updateAccountBalance("123-4567", money);
+    
+    expect(fs.writeFile).toHaveBeenCalled();
+
+    const updatedData = JSON.parse(fs.writeFile.mock.calls[0][1]);
+    const updatedAccount = updatedData.find(acc => acc.accountNumber === accountNumber);
+    expect(updatedAccount.balance).toBe(initialBalance + money);
   });
 });
