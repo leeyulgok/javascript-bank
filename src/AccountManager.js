@@ -1,7 +1,7 @@
 import Account from "./Account.js";
 import InputView from "./InputView.js";
 import OutputView from "./OutputView.js";
-import { saveAccount } from "./AccountFileHandler.js";
+import { findAccountByNumber, saveAccount } from "./AccountFileHandler.js";
 
 const AccountManager = {
   async createAccount() {
@@ -26,7 +26,8 @@ const AccountManager = {
   },
 
   async readAccount() {
-    const data = await InputView.readUserAccountNumber();
+    const accountNumber = await InputView.readUserAccountNumber();
+    const data = await findAccountByNumber(accountNumber);
     const account = new Account(
       data.userName,
       data.accountNumber,

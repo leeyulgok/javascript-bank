@@ -41,7 +41,7 @@ const ProgressTransaction = {
   },
 
   async remittanceAccount(account) {
-    const opponentAccount = await InputView.readRemittanceAccount(account);
+    const opponentAccountNumber = await InputView.readRemittanceAccount(account);
     
     await this.checkPassword(account);
     OutputView.printBalance(account);
@@ -50,8 +50,8 @@ const ProgressTransaction = {
     // 나중에 트랜젝션 처리하기.
     account.withdrawBalance(money);
     await updateAccountBalance(account.accountNumber, -money);
-    await updateAccountBalance(opponentAccount.accountNumber, money);
-    const transaction = new Transaction(account, TransactionType.REMITTANCE, money, opponentAccount.accountNumber);
+    await updateAccountBalance(opponentAccountNumber, money);
+    const transaction = new Transaction(account, TransactionType.REMITTANCE, money, opponentAccountNumber);
     await recordRemittance(transaction);
 
     OutputView.printBalance(account);

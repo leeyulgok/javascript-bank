@@ -28,11 +28,11 @@ describe("InputView 단위 테스트", () => {
   test("readExistsAccount: 정상적인 입력", async () => {
     Console.readLineAsync.mockResolvedValueOnce("1");
     const isTrue = await InputView.readExistsAccount()
-    expect(isTrue).toBeTruthy();
+    expect(isTrue).toBe("1");
 
     Console.readLineAsync.mockResolvedValueOnce("2");
     const isFalse = await InputView.readExistsAccount()
-    expect(isFalse).toBeFalsy();
+    expect(isFalse).toBe("2");
   });
 
   test("readForMakeAccountNumber: 정상적인 계좌번호 입력", async () => {
@@ -53,12 +53,12 @@ describe("InputView 단위 테스트", () => {
     Console.readLineAsync.mockResolvedValueOnce("1");
     const continueTransaction = await InputView.readContinueTransaction();
 
-    expect(continueTransaction).toBeTruthy();
+    expect(continueTransaction).toBe("1");
 
     Console.readLineAsync.mockResolvedValueOnce("2");
     const stopTransaction = await InputView.readContinueTransaction();
 
-    expect(stopTransaction).toBeFalsy();
+    expect(stopTransaction).toBe("2");
   });
 
   test("readUserAccountNumber: 정상적인 계좌번호 입력", async () => {
@@ -66,7 +66,7 @@ describe("InputView 단위 테스트", () => {
     Console.readLineAsync.mockResolvedValueOnce("987-6543");
     const account = await InputView.readUserAccountNumber();
 
-    expect(account.accountNumber).toBe("987-6543");
+    expect(account).toBe("987-6543");
   });
 
   test("readProgressNumber: 정상적인 입력", async () => {

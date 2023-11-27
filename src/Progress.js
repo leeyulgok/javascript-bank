@@ -13,6 +13,11 @@ const PROGRESS_NUMER = {
   EXIT: "9",
 };
 
+const IS_TRUE = {
+  YES: "1",
+  NO: "2",
+}
+
 const Progress = {
   async progressAccount() {
     let isAccountContinue = true;
@@ -21,10 +26,10 @@ const Progress = {
     while (isAccountContinue) {
       const isExists = await InputView.readExistsAccount();
 
-      if (isExists) {
+      if (isExists === IS_TRUE.YES) {
         account = await AccountManager.readAccount();
         isAccountContinue = false;
-      } else {
+      } else if(isExists === IS_TRUE.NO) {
         await AccountManager.createAccount();
         isAccountContinue = await InputView.readContinueTransaction();
       }
@@ -51,7 +56,7 @@ const Progress = {
         }
       }
 
-      isProgressContinue = await InputView.readContinueTransaction();
+      isProgressContinue = await InputView.readContinueTransaction() === IS_TRUE.YES ? true : false;
     }
   },
 

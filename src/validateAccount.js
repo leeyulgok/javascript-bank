@@ -51,7 +51,7 @@ export const checkExistsAccount = async (accountNumber, selfAccount) => {
   const account = await checkAccountExists(accountNumber);
   checkIfSameAccount(account, selfAccount);
 
-  return account;
+  return accountNumber;
 };
 
 export const checkAccountExists = async (accountNumber) => {
