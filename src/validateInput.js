@@ -1,13 +1,12 @@
-const ERROR_MESSAGE = {
-  INVALID_DEFAULT: "[ERROR] 유효하지 않은 입력입니다. 다시 한 번 입력해주세요.",
-  INVALID_MONEY: "[ERROR] 유효하지 않은 금액입니다. 다시 한 번 입력해주세요.",
-  INVALID_WITHDRAW: "[ERROR] 출금하려는 금액이 더 많습니다.",
-};
+import ERROR_MESSAGE from "../constants/ErrorMessages.js";
 
 export const validateYesOrNoInput = (input) => {
-  if (input === "1") {
+  const YES = "1";
+  const NO = "2";
+
+  if (input === YES) {
     return true;
-  } else if (input === "2") {
+  } else if (input === NO) {
     return false;
   } else {
     throw new Error(ERROR_MESSAGE.INVALID_DEFAULT);
